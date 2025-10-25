@@ -119,15 +119,18 @@ public class ChangeBookingHotelDate extends BaseClass{
 		System.out.println(getbookingHotelName);
 		hotelName = ""+ getbookingHotelName;
 		payment.clickBookingBtn();
-		String replace = getbookingIDHotel.replace("#", "");
-		bookingIdWithOutSpecialChar ="" +replace;
-		System.out.println(bookingIdWithOutSpecialChar);
+//		String replace = getbookingIDHotel.replace("#", "");
+//		bookingIdWithOutSpecialChar ="" +replace;
+//		System.out.println(bookingIdWithOutSpecialChar);
 	}
 
 	@Then("User should verify same selected Hotel is booked or not")
 	public void user_should_verify_same_selected_hotel_is_booked_or_not() {
 		String hotelID = bookingPage.getHotelID();
 		System.out.println(hotelID);
+		String replace = hotelID.replace("#", "");
+		bookingIdWithOutSpecialChar =""+replace;
+		System.out.println(bookingIdWithOutSpecialChar);
 		String hotelName = bookingPage.getHotelName();
 		System.out.println(hotelName);
 		String hotelPrice = bookingPage.getHotelPrice();
@@ -149,23 +152,24 @@ public class ChangeBookingHotelDate extends BaseClass{
 	public void user_enter_and(String userName, String password) throws InterruptedException {
 	scrollDownInLoginField();
 	loginWebPage = new LoginPageInWebView(BaseClass.adriver);
-//	String contactName = loginWebPage.contactName();
-//	System.out.println("Contact Name:" + contactName);
-//	String contactNumber = loginWebPage.contactNumber();
-//	System.out.println("Contact Number:"+ contactNumber);
+	String contactName = loginWebPage.contactName();
+	System.out.println("Contact Name:" + contactName);
+	String contactNumber = loginWebPage.contactNumber();
+	System.out.println("Contact Number:"+ contactNumber);
 	loginWebPage.enterCredentialsAndClickLogin(userName, password);
 	}
 
 	@When("User go to my account page")
-	public void user_go_to_my_account_page() {
+	public void user_go_to_my_account_page() throws InterruptedException {
 		homePageWeb  =	new HomePageInWebView(BaseClass.adriver);
-//		String homePageHeaderName = homePageWeb.homePageHeaderName();
-//		System.out.println("Home Page Header:"+ homePageHeaderName);
+		Thread.sleep(4000);
+		String homePageHeaderName = homePageWeb.homePageHeaderName();
+		System.out.println("Home Page Header:"+ homePageHeaderName);
 		homePageWeb.navigateToMyBookingPage();
 	}
 
 	@When("User search the Order ID")
-	public void user_search_the_order_id() {
+	public void user_search_the_order_id() throws InterruptedException {
 		bookingpageWeb =	new BookingsPageInWebView(BaseClass.adriver);
 		bookingpageWeb.searchHotelUsingBookingId(bookingIdWithOutSpecialChar);
 		
@@ -174,7 +178,8 @@ public class ChangeBookingHotelDate extends BaseClass{
 	}
 
 	@Then("User should verify same booked Order ID is present or not")
-	public void user_should_verify_same_booked_order_id_is_present_or_not() {
+	public void user_should_verify_same_booked_order_id_is_present_or_not() throws InterruptedException {
+		Thread.sleep(3500);
 		String bookingId2 = bookingpageWeb.getBookingId(bookingId);
 		System.out.println(bookingId2);
 	}
@@ -196,19 +201,21 @@ public class ChangeBookingHotelDate extends BaseClass{
 	}
 
 	@When("User edit the Check-in Date {string} and Check-out Date {string}")
-	public void user_edit_the_check_in_date_and_check_out_date(String ModifyDate, String ChangeCheckoutDate) {
+	public void user_edit_the_check_in_date_and_check_out_date(String ModifyDate, String ChangeCheckoutDate) throws InterruptedException {
 		bookingpageWeb.clickEditBtn();
+		Thread.sleep(4000);
 		editBookingPageWeb =new EditBookingPageInWebView(BaseClass.adriver);
 		editBookingPageWeb.changeCheckInAndCheckOutDate(ModifyDate, ChangeCheckoutDate);
 
 	}
 
 	@Then("User should verify after modify check-in date success message {string}")
-	public void user_should_verify_after_modify_check_in_date_success_message(String string) {
+	public void user_should_verify_after_modify_check_in_date_success_message(String string) throws InterruptedException {
+		Thread.sleep(2000);
 		String successfullyTxt = editBookingPageWeb.getSuccessfullyTxt();
 		System.out.println("successfully Message:"+ successfullyTxt);
 		bookingpageWeb.searchHotelUsingBookingId(bookingIdWithOutSpecialChar);
-		scrollDown();
+		//scrollDown();
 		String bookingId3 = bookingpageWeb.getBookingId(bookingId);
 		System.out.println(bookingId3);
 		String hotelName3 = bookingpageWeb.getHotelName(hotelName);

@@ -70,10 +70,7 @@ public class BaseClass {
 		cap.setCapability("platformName", "Android");
 		cap.setCapability("appium:browserName", "chrome");
 		cap.setCapability("appium:automationName", "uiAutomator2");
-	//	cap.setCapability("uiAutomator2ServerLaunchTimeout", 90000);
-//		cap.setCapability("appium:appPackage", "com.android.chrome");
-//		cap.setCapability("appium:appActivity", "com.google.android.apps.chrome.Main type=1");
-//		driver = new AppiumDriver(cap);
+
 		adriver = new AndroidDriver(cap);
 		@Nullable
 		String context = adriver.getContext();
@@ -87,9 +84,15 @@ public class BaseClass {
 
 		adriver.findElement(By.xpath("//android.widget.Button[@content-desc=\"Allow while visiting the site\"]")).click();
 		// Then switch back to webview
-		adriver.context("CHROMIUM");
+		for (String contextName : contextHandles) {
+		    if (contextName.contains("CHROMIUM")) {
+		    	adriver.context(contextName); // Switch to the web context
+		        break;
+		    }
+		}
+		//adriver.context("CHROMIUM");
 		Thread.sleep(3000);
-		adriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));	
+		//adriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));	
 	}
 	
 	public void closeApp() {
@@ -105,7 +108,7 @@ public class BaseClass {
 	        }
 	    }
 
-	public void scrollDownInLoginField() {
+	public static void scrollDownInLoginField() {
 		JavascriptExecutor js = (JavascriptExecutor) adriver;
 		WebElement element = adriver.findElement(By.xpath("//a[@class='btn btn-whatsapp']"));
 		js.executeScript("arguments[0].scrollIntoView(true);", element);

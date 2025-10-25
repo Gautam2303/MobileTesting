@@ -11,7 +11,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 public class BookingsPageInWebView extends BaseClass{
-	AndroidDriver adriver;
+	AndroidDriver driver;
 
 	@FindBy(xpath = "//input[@name='search']")
 	private WebElement searchByBookingField;
@@ -28,17 +28,21 @@ public class BookingsPageInWebView extends BaseClass{
 	@FindBy(xpath = "//button[@class='edit btn filter_btn']")
 	private WebElement editBtn;
 	
-	public BookingsPageInWebView(AndroidDriver adriver) {
-		this.adriver = adriver;
-		PageFactory.initElements(adriver, this);
+	public BookingsPageInWebView(AndroidDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 	
-	public void searchHotelUsingBookingId(String myBookingId) {
+	public void searchHotelUsingBookingId(String myBookingId) throws InterruptedException {
+		Thread.sleep(3500);
 		searchByBookingField.sendKeys(myBookingId);
 
 	}
 	
 	public String getBookingId(String bookingId) {
+		JavascriptExecutor js = (JavascriptExecutor) adriver;
+		WebElement element = adriver.findElement(By.xpath("//h5[text()='Evoma Deluxe']"));
+		js.executeScript("arguments[0].scrollIntoView(true);", element);
 		WebElement getBookingId = adriver.findElement(By.xpath("//span[text()='"+bookingId+"']"));
 		String bookId = getBookingId.getText();
 		return bookId;
@@ -71,4 +75,6 @@ public class BookingsPageInWebView extends BaseClass{
 	editBtn.click();
 
 	}
+	
+	
 }

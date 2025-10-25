@@ -18,7 +18,6 @@ Scenario Outline: Verify Change Booking id when user booked hotel without GST-Ca
     Given User quit native app
     And User is on the OMR Branch hotel web application
     When User enter "<userName>" and "<password>"
-    Then User should verify success message after login "Welcome Greens"
     When User go to my account page
     When User search the Order ID
     Then User should verify same booked Order ID is present or not

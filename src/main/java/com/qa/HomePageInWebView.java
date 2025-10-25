@@ -9,7 +9,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class HomePageInWebView extends BaseClass {
 	
-	AndroidDriver adriver;
+	AndroidDriver driver;
 
 	@FindBy(xpath = "//h5[contains(@class, 'welcome-heading')]")
 	private WebElement homePageHeader;
@@ -23,9 +23,9 @@ public class HomePageInWebView extends BaseClass {
 	@FindBy(xpath = "//a[text()='My Bookings']")
 	private WebElement clickMyBookingsOption;
 	
-	public HomePageInWebView(AndroidDriver adriver) {
-		this.adriver = adriver;
-		PageFactory.initElements(adriver, this);
+	public HomePageInWebView(AndroidDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 
 	
@@ -34,7 +34,8 @@ public class HomePageInWebView extends BaseClass {
 
 	}
 	
-	public void navigateToMyBookingPage() {
+	public void navigateToMyBookingPage() throws InterruptedException {
+		Thread.sleep(2500);
 		clickUserName.click();
 		clickMyAccountOption.click();
 		clickMyBookingsOption.click();

@@ -2,6 +2,7 @@ package com.qa;
 
 import java.time.Duration;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -10,13 +11,14 @@ import org.openqa.selenium.support.PageFactory;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 
-public class LoginPageInWebView extends BaseClass {
-	AndroidDriver adriver;
-
-//	@FindBy(xpath = "//android.widget.TextView[@resource-id=\"login_joining_automation_text\"]")
-//	private WebElement homePageHeader;
-
+public class LoginPageInWebView {
+	AndroidDriver driver;
+	
+	@FindBy(xpath = "//android.widget.TextView[@resource-id=\"login_joining_automation_text\"]")
+	private WebElement homePageHeader;
+	
 	@FindBy(xpath = "//a[@class='btn btn-contact']")
 	private WebElement contactName;
 	
@@ -35,21 +37,17 @@ public class LoginPageInWebView extends BaseClass {
 	@FindBy(xpath = "//span[contains(text(), 'Welcome to our site, if you')]")
 	private WebElement aiPopup;
 
-//	@FindBy(xpath = "//android.widget.TextView[contains(@text, 'Login')]")
-//	private WebElement welcomeMessage;
-
-//	 public LoginPageInWebView(AndroidDriver adriver) {
-//	        this.adriver = adriver;
-//	        PageFactory.initElements(adriver, this);
-//	    }
-	
-	public LoginPageInWebView(AndroidDriver adriver) {
-		 this.adriver = adriver;
-	        PageFactory.initElements(adriver, this);
+	@FindBy(xpath = "//android.widget.TextView[contains(@text, 'Login')]")
+	private WebElement welcomeMessage;
+	public LoginPageInWebView(AndroidDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 
+
 	public void enterCredentialsAndClickLogin(String userName, String password) {
-		txtUserNameWebView.sendKeys(userName);
+
+	txtUserNameWebView.sendKeys(userName);
 		txtPasswordWebView.sendKeys(password);
 		btnLoginWebView.click();
 //		if (aiPopup.isDisplayed()) {
@@ -61,16 +59,16 @@ public class LoginPageInWebView extends BaseClass {
 		
 	}
 
-//	public String getWelcomeMessageText() {
-//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-//		return welcomeMessage.getText();
-//	}
-//
-//	public String getHomePageHeaderName() {
-//		return homePageHeader.getText();
-//	}
+	public String getWelcomeMessageText() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		return welcomeMessage.getText();
+	}
 
-	public String contactName() throws InterruptedException {
+	public String getHomePageHeaderName() {
+		return homePageHeader.getText();
+	}
+
+	public String contactName(){
 		
 		return contactName.getText();
 

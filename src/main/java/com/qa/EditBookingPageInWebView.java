@@ -9,7 +9,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 
 public class EditBookingPageInWebView extends BaseClass{
-	AndroidDriver adriver;
+	AndroidDriver driver;
 
 	@FindBy(xpath = "//h2[contains(text(),'Edit Booking')]")
 	private WebElement editBookingPageHeader;
@@ -26,8 +26,8 @@ public class EditBookingPageInWebView extends BaseClass{
 	@FindBy(xpath = "//li[@class='alertMsg']")
 	private WebElement bookingSuccessfullyTxt;
 	
-	public EditBookingPageInWebView(AndroidDriver adriver) {
-		this.adriver = adriver;
+	public EditBookingPageInWebView(AndroidDriver driver) {
+		this.driver = driver;
 		PageFactory.initElements(adriver, this);
 	}
 	
@@ -42,5 +42,6 @@ public class EditBookingPageInWebView extends BaseClass{
 		String text = bookingSuccessfullyTxt.getText();
 		return text;
 	}
+	
 
 }

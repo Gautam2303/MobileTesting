@@ -37,5 +37,10 @@
         <version>5.9.2</version>
     </dependency>
 
-	</dependencies>
+    <dependency>
+    	<groupId>com.info</groupId>
+    	<artifactId>MobileTesting</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 </project>
